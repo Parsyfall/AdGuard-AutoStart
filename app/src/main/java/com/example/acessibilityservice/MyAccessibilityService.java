@@ -1,18 +1,11 @@
 package com.example.acessibilityservice;
 
 import android.accessibilityservice.AccessibilityService;
-import android.accessibilityservice.AccessibilityServiceInfo;
-import android.app.ActivityManager;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 
-import java.util.List;
-
-// TODO: Run service independently in background (bound or run in a separate thread or in foreground?)
 public class MyAccessibilityService extends AccessibilityService {
     private static final String TAG = "MyAccessibilityService";
     private static boolean isRunning = false;
@@ -24,7 +17,6 @@ public class MyAccessibilityService extends AccessibilityService {
         String packageName = event.getPackageName().toString();
         if (packageName.equals("com.google.android.googlequicksearchbox") && !isAdGuardRunning) {
             startAdGuard();
-            isAdGuardRunning = true;
         }
         Log.e(TAG, "app name is : " + packageName);
 
@@ -55,6 +47,7 @@ public class MyAccessibilityService extends AccessibilityService {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.setData(Uri.parse("market://details?id=" + "com.adguard.android"));
             startActivity(intent);
+            isAdGuardRunning = true;
             return;
         }
         // Start AdGuard

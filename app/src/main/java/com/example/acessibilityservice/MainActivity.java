@@ -1,21 +1,17 @@
 package com.example.acessibilityservice;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class MainActivity extends AppCompatActivity {
-    private Button allowPermission, adguard;
+    private Button allowPermission;
     private TextView serviceStatus;
 
     @Override
@@ -32,25 +28,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
             }
         });
-
-        adguard = findViewById(R.id.adguard);
-        adguard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = getPackageManager().getLaunchIntentForPackage("com.android.adguard");
-                if (intent == null) { // Package not found
-                    // Send user to AdGuard market page
-                    intent = new Intent(Intent.ACTION_VIEW);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setData(Uri.parse("market://details?id=" + "com.adguard.android"));
-                    startActivity(intent);
-                }
-
-                intent.setAction(Intent.ACTION_SEND);
-                intent.putExtra("ACTION", 2);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -58,10 +35,10 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if (MyAccessibilityService.isRunning()){
             serviceStatus.setText("Running");
-            serviceStatus.setTextColor(Color.parseColor("0x008000"));   // Green
+            serviceStatus.setTextColor(Color.parseColor("#008000"));   // Green
         }else{
             serviceStatus.setText("Stoped");
-            serviceStatus.setTextColor(Color.parseColor("0xFF0000"));   // Red
+            serviceStatus.setTextColor(Color.parseColor("#FF0000"));   // Red
         }
 
     }
