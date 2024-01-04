@@ -1,7 +1,6 @@
 package com.example.acessibilityservice;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
@@ -9,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 public class MainActivity extends AppCompatActivity {
     private Button allowPermission;
@@ -35,10 +35,10 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if (MyAccessibilityService.isRunning()){
             serviceStatus.setText("Running");
-            serviceStatus.setTextColor(Color.parseColor("#008000"));   // Green
+            serviceStatus.setTextColor(ContextCompat.getColor(this, R.color.green));   // Green
         }else{
             serviceStatus.setText("Stoped");
-            serviceStatus.setTextColor(Color.parseColor("#FF0000"));   // Red
+            serviceStatus.setTextColor(ContextCompat.getColor(this, R.color.red));   // Red
         }
 
     }

@@ -13,6 +13,7 @@ public class MyAccessibilityService extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
+        // TODO: Enable service programmatically, to get rid of button
         Log.e(TAG, "onAccessibilityEvent: ");
         String packageName = event.getPackageName().toString();
         if (packageName.equals("com.google.android.googlequicksearchbox") && !isAdGuardRunning) {
@@ -24,7 +25,7 @@ public class MyAccessibilityService extends AccessibilityService {
 
     @Override
     public void onInterrupt() {
-        Log.e(TAG, "onInterrupt: something went wrong");
+        Log.e(TAG, "onInterrupt: feedback interrupted");
     }
 
     @Override
